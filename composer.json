@@ -1,0 +1,8 @@
+{
+  "name": "Game of Life (glogster edition)",
+  "type": "project",
+  "require": {
+    "php": ">= 5.5",
+    "phpunit/phpunit": "*"
+  }
+}
