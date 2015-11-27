@@ -18,6 +18,7 @@ class CellManager
 		$count = 0;
 		$species = $liveCells[$x][$y];
 
+		// iterate living neighbours of cell excluding neighbours beyond edges and cell itself
 		for ($a = max($x - 1, 0); $a <= min($x + 1, $worldWidth - 1); $a++) {
 			for ($b = max($y - 1, 0); $b <= min($y + 1, $worldWidth - 1); $b++) {
 				if ($a == $x && $b == $y) {
@@ -59,11 +60,13 @@ class CellManager
 		}
 		$speciesCount = [];
 
+		// iterate live neighbours of cell excluding neighbours beyond edges and cell itself
 		for ($a = max($x - 1, 0); $a <= min($x + 1, $worldWidth - 1); $a++) {
 			for ($b = max($y - 1, 0); $b <= min($y + 1, $worldWidth - 1); $b++) {
 				if ($a == $x && $b == $y) {
 					continue;
 				}
+				// count types of living neighbours
 				if (isset($liveCells[$a][$b])) {
 					$neighborSpecies = $liveCells[$a][$b];
 					if (!isset($speciesCount[$neighborSpecies])) {
@@ -96,6 +99,8 @@ class CellManager
 	{
 		$deadCells = [];
 
+		// iterate living cells and find dead neighbours
+		// only inside gaming filed
 		foreach ($liveCells as $x => $cols) {
 			foreach ($cols as $y => $species) {
 				for ($a = max($x - 1, 0); $a <= min($x + 1, $worldWidth - 1); $a++) {
