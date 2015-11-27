@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<life><world><cells>1</cells><species>2</species><iterations>3</iterations></world><organisms><organism><x_pos>5</x_pos><y_pos>6</y_pos><species>a</species></organism><organism><x_pos>6</x_pos><y_pos>7</y_pos><species>c</species></organism></organisms></life>

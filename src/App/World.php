@@ -4,17 +4,21 @@ namespace App;
 class World
 {
 	/**
-	 * @param int $worldWidth
-	 * @param int $iterations
-	 * @param array $generation
-	 * @return array
+	 * @param WorldState $state
+	 * @return WorldState
 	 */
-	public static function run($worldWidth, $iterations, array $generation)
+	public static function run(WorldState $state)
 	{
-		for ($i = 1; $i <= $iterations; $i++) {
-			$generation = self::iteration($worldWidth, $generation);
+		$generation = $state->generation;
+		for ($i = 1; $i <= $state->iterations; $i++) {
+			$generation = self::iteration($state->worldWidth, $generation);
 		}
-		return $generation;
+		$lastState = new WorldState();
+		$lastState->worldWidth = $state->worldWidth;
+		$lastState->iterations = $state->iterations;
+		$lastState->speciesCount = $state->speciesCount;
+		$lastState->generation = $generation;
+		return $lastState;
 	}
 
 	/**
