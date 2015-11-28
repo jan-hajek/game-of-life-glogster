@@ -51,6 +51,7 @@ class CellManager
 	 * @param array $liveCells
 	 * @param int $x
 	 * @param int $y
+	 * @param int $worldWidth
 	 * @return State
 	 */
 	public static function getNewCellStateForDeadCell(array &$liveCells, $x, $y, $worldWidth)

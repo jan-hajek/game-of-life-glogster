@@ -40,7 +40,7 @@ class XmlProvider
 	 * @return int
 	 * @throws XmlProviderException
 	 */
-	private function getNumberValue($array, $path)
+	private static function getNumberValue($array, $path)
 	{
 		foreach (explode(".", $path) as $name) {
 			if (!isset($array[$name])) {
