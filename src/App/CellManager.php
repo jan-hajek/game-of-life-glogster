@@ -10,7 +10,7 @@ class CellManager
 	 * @param int $worldWidth
 	 * @return State
 	 */
-	public static function getNewCellStateForLiveCell(array &$liveCells, $x, $y, $worldWidth)
+	public static function getNewCellStateForLiveCell(array $liveCells, $x, $y, $worldWidth)
 	{
 		if (!isset($liveCells[$x][$y])) {
 			throw new \RuntimeException("cell x:{$x}, y:{$y} is dead");
@@ -54,7 +54,7 @@ class CellManager
 	 * @param int $worldWidth
 	 * @return State
 	 */
-	public static function getNewCellStateForDeadCell(array &$liveCells, $x, $y, $worldWidth)
+	public static function getNewCellStateForDeadCell(array $liveCells, $x, $y, $worldWidth)
 	{
 		if (isset($liveCells[$x][$y])) {
 			throw new \RuntimeException("cell x:{$x}, y:{$y} is alive");
@@ -96,7 +96,7 @@ class CellManager
 	 * @param int $worldWidth
 	 * @return array
 	 */
-	public static function getDeadNeighbours(array &$liveCells, $worldWidth)
+	public static function getDeadNeighbours(array $liveCells, $worldWidth)
 	{
 		$deadCells = [];
 
