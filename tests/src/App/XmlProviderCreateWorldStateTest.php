@@ -11,7 +11,7 @@ class XmlProviderCreateWorldStateTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function fileNotFound()
 	{
-		XmlProvider::createWorldStateFromXmlFile(__DIR__ . "/unknown.xml");
+		(new XmlProvider())->createWorldStateFromXmlFile(__DIR__ . "/unknown.xml");
 	}
 
 	/**
@@ -21,7 +21,7 @@ class XmlProviderCreateWorldStateTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function invalidXml()
 	{
-		XmlProvider::createWorldStateFromXmlFile(__DIR__ . "/XmlProviderCreateWorldStateTestData/invalid.xml");
+		(new XmlProvider())->createWorldStateFromXmlFile(__DIR__ . "/XmlProviderCreateWorldStateTestData/invalid.xml");
 	}
 
 	/**
@@ -31,7 +31,7 @@ class XmlProviderCreateWorldStateTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function missingCellTag()
 	{
-		XmlProvider::createWorldStateFromXmlFile(__DIR__ . "/XmlProviderCreateWorldStateTestData/missingCellsTag.xml");
+		(new XmlProvider())->createWorldStateFromXmlFile(__DIR__ . "/XmlProviderCreateWorldStateTestData/missingCellsTag.xml");
 	}
 
 
@@ -42,7 +42,7 @@ class XmlProviderCreateWorldStateTest extends \PHPUnit_Framework_TestCase
 	{
 		$expectedFirstGeneration[5][6] = "a";
 		$expectedFirstGeneration[6][7] = "c";
-		$config = XmlProvider::createWorldStateFromXmlFile(__DIR__ . "/XmlProviderCreateWorldStateTestData/valid.xml");
+		$config = (new XmlProvider())->createWorldStateFromXmlFile(__DIR__ . "/XmlProviderCreateWorldStateTestData/valid.xml");
 		$this->assertEquals(100, $config->worldWidth);
 		$this->assertEquals(1000, $config->iterations);
 		$this->assertEquals($expectedFirstGeneration, $config->generation);

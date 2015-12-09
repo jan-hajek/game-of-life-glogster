@@ -8,23 +8,23 @@ class XmlProvider
 	 * @throws XmlProviderException
 	 * @return WorldState
 	 */
-	public static function createWorldStateFromXmlFile($filePath)
+	public function createWorldStateFromXmlFile($filePath)
 	{
-		$data = self::getData($filePath);
+		$data = $this->getData($filePath);
 
 		$config = new WorldState();
-		$config->worldWidth = self::getNumberValue($data, "world.cells");
-		$config->iterations = self::getNumberValue($data, "world.iterations");
+		$config->worldWidth = $this->getNumberValue($data, "world.cells");
+		$config->iterations = $this->getNumberValue($data, "world.iterations");
 		// new cells can born only from species declared in world.organisms.organism.species tag in source xml
 		// therefore tag world.species is unnecessary
-		$config->speciesCount = self::getNumberValue($data, "world.species");
+		$config->speciesCount = $this->getNumberValue($data, "world.species");
 
 		if (!isset($data['organisms']['organism'])) {
 			throw new XmlProviderException("missing tag organisms.organism", XmlProviderException::WRONG_FORMAT);
 		}
 		foreach ($data['organisms']['organism'] as $organism) {
-			$x = self::getNumberValue($organism, 'x_pos');
-			$y = self::getNumberValue($organism, 'y_pos');
+			$x = $this->getNumberValue($organism, 'x_pos');
+			$y = $this->getNumberValue($organism, 'y_pos');
 			if (!isset($organism['species'])) {
 				throw new XmlProviderException("missing tag species", XmlProviderException::WRONG_FORMAT);
 			}
@@ -40,7 +40,7 @@ class XmlProvider
 	 * @return int
 	 * @throws XmlProviderException
 	 */
-	private static function getNumberValue($array, $path)
+	private function getNumberValue($array, $path)
 	{
 		foreach (explode(".", $path) as $name) {
 			if (!isset($array[$name])) {
@@ -61,7 +61,7 @@ class XmlProvider
 	 * @return array
 	 * @throws XmlProviderException
 	 */
-	private static function getData($filePath)
+	private function getData($filePath)
 	{
 		$xmlInput = @file_get_contents($filePath);
 		if ($xmlInput === FALSE) {
@@ -85,7 +85,7 @@ class XmlProvider
 	 * @param string $filePath
 	 * @throws XmlProviderException
 	 */
-	public static function saveWorldStateToFile(WorldState $state, $filePath)
+	public function saveWorldStateToFile(WorldState $state, $filePath)
 	{
 		$xml = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><life></life>");
 

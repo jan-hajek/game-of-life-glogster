@@ -17,7 +17,7 @@ class XmlProviderSaveWorldStateToFileTest extends \PHPUnit_Framework_TestCase
 		$state->generation[6][7] = "c";
 		$expectedFilePath = __DIR__ . "/XmlProviderSaveWorldStateToFileTestData/expected.xml";
 		$actualFilePath = __DIR__ . "/XmlProviderSaveWorldStateToFileTestData/actual.xml";
-		XmlProvider::saveWorldStateToFile($state, $actualFilePath);
+		(new XmlProvider())->saveWorldStateToFile($state, $actualFilePath);
 		$this->assertFileEquals($expectedFilePath, $actualFilePath);
 		unlink($actualFilePath);
 	}
@@ -32,6 +32,6 @@ class XmlProviderSaveWorldStateToFileTest extends \PHPUnit_Framework_TestCase
 		$state = new WorldState();
 		$state->generation = [];
 		$actualFilePath = "/unknownDir/xxx/yyy/test.xml";
-		XmlProvider::saveWorldStateToFile($state, $actualFilePath);
+		(new XmlProvider())->saveWorldStateToFile($state, $actualFilePath);
 	}
 }

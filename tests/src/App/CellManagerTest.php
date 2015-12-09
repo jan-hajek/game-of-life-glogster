@@ -33,7 +33,7 @@ class CellManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getNewCellStateForLiveCell($x, $y, State $expected)
 	{
-		$this->assertEquals($expected->getState(), \App\CellManager::getNewCellStateForLiveCell($this->cells, $x, $y, $this->worldWidth)->getState());
+		$this->assertEquals($expected->getState(), $this->createCellManager()->getCellNewState($this->cells, $x, $y)->getState());
 	}
 
 	/**
@@ -68,7 +68,7 @@ class CellManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function getNewCellStateForDeadCell($x, $y, State $expected)
 	{
-		$this->assertEquals($expected->getState(), \App\CellManager::getNewCellStateForDeadCell($this->cells, $x, $y, $this->worldWidth)->getState());
+		$this->assertEquals($expected->getState(),$this->createCellManager()->getCellNewState($this->cells, $x, $y)->getState());
 	}
 
 	/**
@@ -127,7 +127,15 @@ class CellManagerTest extends \PHPUnit_Framework_TestCase
 		$expected[48][49] = null;
 		$expected[49][48] = null;
 
-		$this->assertEquals($expected, \App\CellManager::getDeadNeighbours($liveCells, $this->worldWidth));
+		$this->assertEquals($expected, $this->createCellManager()->getDeadNeighbours($liveCells));
+	}
+
+	/**
+	 * @return CellManager
+	 */
+	private function createCellManager()
+	{
+		return new CellManager($this->worldWidth);
 	}
 
 }

@@ -38,8 +38,10 @@ class WorldTest extends \PHPUnit_Framework_TestCase
 	{
 		$iterations = $this->iterations;
 		$input = array_shift($iterations);
+		$cellManager = new CellManager(5);
+		$world = new World($cellManager);
 		foreach ($iterations as $expected) {
-			$actual = World::iteration(5, $this->cleanArray($input));
+			$actual = $world->iteration($this->cleanArray($input));
 			$this->assertEquals($this->cleanArray($expected), $actual);
 			$input = $expected;
 		}

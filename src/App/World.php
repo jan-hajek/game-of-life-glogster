@@ -4,14 +4,28 @@ namespace App;
 class World
 {
 	/**
+	 * @var CellManager
+	 */
+	private $cellManager;
+
+	/**
+	 * World constructor.
+	 * @param CellManager $cellManager
+	 */
+	public function __construct(CellManager $cellManager)
+	{
+		$this->cellManager = $cellManager;
+	}
+
+	/**
 	 * @param WorldState $state
 	 * @return WorldState
 	 */
-	public static function run(WorldState $state)
+	public function run(WorldState $state)
 	{
 		$generation = $state->generation;
 		for ($i = 1; $i <= $state->iterations; $i++) {
-			$generation = self::iteration($state->worldWidth, $generation);
+			$generation = $this->iteration($generation);
 		}
 		$lastState = new WorldState();
 		$lastState->worldWidth = $state->worldWidth;
@@ -22,26 +36,25 @@ class World
 	}
 
 	/**
-	 * @param int $worldWidth
 	 * @param array $generation
 	 * @return array
 	 */
-	public static function iteration($worldWidth, array $generation)
+	public function iteration(array $generation)
 	{
 		$newGeneration = [];
-		$deadNeighbours = CellManager::getDeadNeighbours($generation, $worldWidth);
+		$deadNeighbours = $this->cellManager->getDeadNeighbours($generation);
 		foreach ($generation as $x => $row) {
 			foreach ($row as $y => $species) {
-				$state = CellManager::getNewCellStateForLiveCell($generation, $x, $y, $worldWidth);
-				if ($state && $state->getState() == State::LET_LIVE) {
+				$state = $this->cellManager->getCellNewState($generation, $x, $y);
+				if ($state->getState() == State::LET_LIVE) {
 					$newGeneration[$x][$y] = $species;
 				}
 			}
 		}
 		foreach ($deadNeighbours as $x => $row) {
 			foreach ($row as $y => $species) {
-				$state = CellManager::getNewCellStateForDeadCell($generation, $x, $y, $worldWidth);
-				if ($state && $state->getState() == State::RESURRECT) {
+				$state = $this->cellManager->getCellNewState($generation, $x, $y);
+				if ($state->getState() == State::RESURRECT) {
 					$newGeneration[$x][$y] = $state->getType();
 				}
 			}
