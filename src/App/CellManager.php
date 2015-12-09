@@ -32,7 +32,7 @@ class CellManager
 			return $this->getLiveCellNewState($neighboursCount, $species);
 		// dead cell
 		} else {
-			return $this->getDeadCellNew($neighboursCount);
+			return $this->getDeadCellNewState($neighboursCount);
 		}
 	}
 
@@ -89,7 +89,7 @@ class CellManager
 	 * @param array $neighboursCount
 	 * @return State
 	 */
-	private function getDeadCellNew(array $neighboursCount)
+	private function getDeadCellNewState(array $neighboursCount)
 	{
 		foreach ($neighboursCount as $species => $count) {
 			//			If there are exactly three organisms of one type surrounding one element, they may
